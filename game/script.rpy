@@ -5,6 +5,7 @@
 
 define y = Character("Yuki", color ="#FFFFFF")
 default yuki_affection = 0
+default acquiredRing = False
 
 # The game starts here.
 
@@ -35,10 +36,19 @@ label start:
             y "Same!"
         "Dog":
             y "hmmm"
+    
+    "Vendor" "Do you want to buy this ring for $999?"
+    menu:
+        "Yes":
+            $ acquiredRing = True
+        "No":
+            "Vendor" "it's your loss"
 
 
 label ending_evaluation:
-    if yuki_affection >= 2:
+    if yuki_affection >= 2 and acquiredRing:
+        jump yuki_marriage_ending
+    elif yuki_affection >= 2:
         jump yuki_best_ending
     elif yuki_affection == 1:
         jump yuki_good_ending
